@@ -65,7 +65,7 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                   <img src={image_logo} alt="Alzu Logo" className="h-14 w-14 border-2 rounded-full p-1" />
                   <h1 className="text-2xl font-bold">Alzu</h1>
                   <p className="text-muted-foreground text-xl">
-                    Iniciar sesión
+                    Registro
                   </p>
                 </div>
 
@@ -95,12 +95,12 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                     <FormItem className="grid gap-2">
                       <div className="flex items-center">
                         <FormLabel>Contraseña</FormLabel>
-                        <a
+                        {/* <a
                           href="/#"
                           className="ml-auto text-sm underline-offset-2 hover:underline"
                         >
                           ¿Olvidaste tu contraseña?
-                        </a>
+                        </a> */}
                       </div>
 
                       <FormControl>
@@ -145,9 +145,9 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                 </Button>
 
                 <div className="mt-4 text-center text-sm">
-                  ¿No tienes una cuenta?{" "}
-                  <a href="/register" className="underline underline-offset-4">
-                    Registrate
+                  ¿Ya tienes cuenta?{" "}
+                  <a href="/login" className="underline underline-offset-4">
+                    Inicia Sesión
                   </a>
                 </div>
               </FieldGroup>

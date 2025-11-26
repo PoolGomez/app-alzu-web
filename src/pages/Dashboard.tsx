@@ -1,7 +1,13 @@
+import { useAppSelector } from "@/hooks/hooks"
 
 const Dashboard = () => {
+
+  const companyData = useAppSelector((state)=> state.company)
+  
   return (
-    <div>Dashboard</div>
+    <div>
+      {companyData.name}
+    </div>
   )
 }
 

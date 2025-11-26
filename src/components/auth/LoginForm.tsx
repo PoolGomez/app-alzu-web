@@ -47,7 +47,7 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
       const { data } = res;
       const { _id, name, email } = data.data;
       dispatch(setUser({ _id, name, email }));
-      navigate("/");
+      navigate("/companies");
     },
     onError: (error) => {
       if (error instanceof AxiosError && error.response) {
