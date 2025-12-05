@@ -8,7 +8,7 @@ import { useAppSelector } from "@/hooks/hooks"
 
 import UserButton from "./UserButton";
 import type { SideNavOption } from "@/types/sidenav-option"
-import { Building2, Grid2X2, LayoutDashboard, Settings, Table, TrainFrontTunnel } from "lucide-react"
+import { Building2, Grid2X2, LayoutDashboard, Settings, Table, TrainFrontTunnel, Users } from "lucide-react"
 import CompanySwitcher from "./CompanySwitcher"
 
     const Header = ({children}:{children: ReactNode}) => {
@@ -29,6 +29,13 @@ import CompanySwitcher from "./CompanySwitcher"
             label:"Ajustes",
             active: true,
             icon: Settings,
+        },
+        {
+            _id: 3,
+            href:"/users",
+            label:"Usuarios",
+            active: true,
+            icon: Users,
         }
      ]
 
@@ -71,6 +78,10 @@ import CompanySwitcher from "./CompanySwitcher"
     ]
 
   return (
+    <>
+   
+            
+    
     <SidebarProvider>
         {
             companyData.isSelect && (
@@ -96,34 +107,42 @@ import CompanySwitcher from "./CompanySwitcher"
             </Sidebar>
             )
         }
-        
-        <SidebarInset>
-            <header className="fixed top-0 left-0 w-full z-50 flex h-12 shrink-0 items-center justify-between gap-2 pr-2 gap-x-4 md:pr-6 border-b transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-background">
+         <header 
+                // className="fixed top-0 left-0 w-full z-50 flex h-12 shrink-0 items-center justify-between gap-2 pr-2 gap-x-4 md:pr-6 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-background"
+                className="fixed top-0 left-0 w-full h-12 z-50 flex items-center justify-between 
+             bg-background border-b transition-[width,height] 
+             ease-linear px-4 md:px-6"
+            >
                 <div className="flex items-center gap-2 px-4">
                     <SidebarTrigger className="p-2" />
-                    <Separator orientation="vertical" className="mr-2 h-8" />
-                    {/* <ShowOnlyScreen screen='desktop'>
-                        <CompanySwitcher myCompanies={myCompanies} sharedCompanies={otherCompanies} />
-                    </ShowOnlyScreen> */}
+                    <Separator orientation="vertical" className="h-8" />
                     {
                         companyData.isSelect && <CompanySwitcher />
                     }
-                    {/* <CompanySwitcher /> */}
 
                 </div>
-                <div className="flex gap-x-2 items-center">
+                <div className="flex gap-2 items-center">
 
                    <ToggleTheme /> 
 
                     <UserButton />
+
+                    
+
+
                    
                 </div>
             </header>
-            <main className='pt-12'>
+        
+        <SidebarInset className='pt-12'>
+            
+            {/* <main className='pt-12'> */}
                 {children}
-            </main>
+            {/* </main> */}
         </SidebarInset>
     </SidebarProvider>
+
+    </>
   )
 }
 

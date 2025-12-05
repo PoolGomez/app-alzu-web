@@ -113,7 +113,7 @@ const RoomsPage = () => {
   }
 
   return (
-    <div className="flex flex-col h-full min-h-screen">
+    <div className="flex flex-col h-full ">
       <div className="px-6 py-4 border-b flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center gap-2">
           <div className="bg-primary/10 p-2 rounded-lg">
