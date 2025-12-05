@@ -4,9 +4,3 @@ export interface Company{
     description: string
     owner: string
 }
-
-export interface ApiResponse<T>{
- success: boolean;
- message: string ;
- data: T;
-}

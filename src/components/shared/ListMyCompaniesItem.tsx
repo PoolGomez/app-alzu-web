@@ -18,6 +18,7 @@ const ListMyCompaniesItem = () => {
     const companyData = useAppSelector((state)=> state.company);
     const dispatch = useAppDispatch();
     // const navigate = useNavigate()
+    // const queryClient = useQueryClient();
     
 
     const { data: resData, isError } = useQuery({
@@ -35,7 +36,10 @@ const ListMyCompaniesItem = () => {
   const handleClickCompany = (company : Company) => {
           console.log(company)
           dispatch(setCompany({_id: company._id, name: company.name, description: company.description, owner: company.owner, isSelect: true }))
+          window.location.reload(); 
+          // queryClient.invalidateQueries({queryKey:["companies"]})
           // navigate("/dashboard")
+
           
         }
 

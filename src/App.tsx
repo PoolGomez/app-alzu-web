@@ -11,6 +11,7 @@ import type { ReactNode } from 'react';
 import Configurations from './pages/Configurations';
 import Products from './pages/Products';
 import Account from './pages/Account';
+import RoomsPage from './pages/Rooms';
 
 
 function Layout(){
@@ -75,6 +76,15 @@ function Layout(){
           <ProtectedRoutes>
             <Header>
               <Products />
+            </Header>
+          </ProtectedRoutes>
+
+        }/>
+
+        <Route path='/rooms' element={
+          <ProtectedRoutes>
+            <Header>
+              <RoomsPage />
             </Header>
           </ProtectedRoutes>
 
