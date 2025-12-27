@@ -2,6 +2,7 @@ import type { Company } from "@/types/company";
 import { axiosWrapper } from "./axiosWrapper";
 import type { ApiResponse } from "@/types/api-responsive";
 import type { Room } from "@/types/room";
+import type { Role } from "@/types/role";
 
 export const login = (data)=> axiosWrapper.post("/api/user/login", data);
 export const register = (data)=> axiosWrapper.post("/api/user/register", data);
@@ -57,3 +58,18 @@ export const updateRoom = async (payload: Omit<Room, "companyId">): Promise<ApiR
   return res.data;
 }
 export const deleteRoom = (roomId: string)=> axiosWrapper.delete(`/api/room/${roomId}`)
+
+
+// permisos Rol
+export const addRole = async (newRole: Omit<Role, "_id">): Promise<ApiResponse<Role>>=>{
+  const res = await axiosWrapper.post("/api/role/", newRole);
+  return res.data;
+}
+export const getAllRolesByCompanyId = (companyId: string) => axiosWrapper.get(`/api/role/all-by-company-id/${companyId}`)
+
+export const updateRole = async (payload: Omit<Role, "companyId">): Promise<ApiResponse<Role>> => {
+  const {_id, ...roleData} = payload;
+  const res = await axiosWrapper.put(`/api/role/${_id}`, roleData)
+  return res.data;
+}
+export const deleteRole = (roleId: string)=>axiosWrapper.delete(`/api/role/${roleId}`)

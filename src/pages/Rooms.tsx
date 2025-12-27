@@ -1,12 +1,21 @@
-
 import RoomCreateModal from "@/components/rooms/RoomCreateModal";
 import RoomEditModal from "@/components/rooms/RoomEditModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAppSelector } from "@/hooks/hooks";
-import { addRoom, deleteRoom, getRoomsAllByCompanyId, updateRoom } from "@/https";
+import {
+  addRoom,
+  deleteRoom,
+  getRoomsAllByCompanyId,
+  updateRoom,
+} from "@/https";
 import type { Room } from "@/types/room";
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { Plus, Table } from "lucide-react";
 import { enqueueSnackbar } from "notistack";
@@ -21,11 +30,11 @@ const RoomsPage = () => {
 
   const queryClient = useQueryClient();
 
-  const handleCreateTable = (newRoomData: Omit<Room, "_id">) => {
+  const handleCreateRoom = (newRoomData: Omit<Room, "_id">) => {
     console.log("Creando sala:", newRoomData);
-    mutationAddRoom.mutate(newRoomData)
+    mutationAddRoom.mutate(newRoomData);
     setIsCreateModalOpen(false);
-};
+  };
 
   const { data: resData, isError } = useQuery({
     queryKey: ["rooms"],
@@ -35,78 +44,75 @@ const RoomsPage = () => {
     placeholderData: keepPreviousData,
   });
 
-
   const mutationAddRoom = useMutation({
-    mutationFn:(reqData: Omit<Room, "_id">) => addRoom(reqData),
-    onSuccess:()=>{
+    mutationFn: (reqData: Omit<Room, "_id">) => addRoom(reqData),
+    onSuccess: () => {
       enqueueSnackbar("Sala creada correctamente", { variant: "success" });
-      queryClient.invalidateQueries({queryKey:["rooms"]})
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
       setIsCreateModalOpen(false);
     },
-    onError:(error)=>{
-      if(error instanceof AxiosError && error.response){
-        enqueueSnackbar(error.response.data.message, { variant: "error"});
-      }else{
-        enqueueSnackbar("Ocurrió un error inerperado" , { variant: "error"})
+    onError: (error) => {
+      if (error instanceof AxiosError && error.response) {
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Ocurrió un error inerperado", { variant: "error" });
       }
-    }
-  })
+    },
+  });
 
   const mutationUpdateRoom = useMutation({
-    mutationFn:(reqData: Omit<Room, "companyId">) => updateRoom(reqData),
-    onSuccess:()=>{
+    mutationFn: (reqData: Omit<Room, "companyId">) => updateRoom(reqData),
+    onSuccess: () => {
       enqueueSnackbar("Sala actualizada correctamente", { variant: "success" });
-      queryClient.invalidateQueries({queryKey:["rooms"]})
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
       setIsEditSheetOpen(false);
     },
-    onError:(error)=>{
-      if(error instanceof AxiosError && error.response){
-        enqueueSnackbar(error.response.data.message, { variant: "error"});
-      }else{
-        enqueueSnackbar("Ocurrió un error inerperado" , { variant: "error"})
+    onError: (error) => {
+      if (error instanceof AxiosError && error.response) {
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Ocurrió un error inerperado", { variant: "error" });
       }
-    }
-  })
+    },
+  });
 
   const handleUpdateRoom = (updatedTRoom: Omit<Room, "companyId">) => {
-    mutationUpdateRoom.mutate(updatedTRoom)
+    mutationUpdateRoom.mutate(updatedTRoom);
   };
 
   const mutationDeleteCompany = useMutation({
-      mutationFn: deleteRoom,
-      onSuccess:(data)=>{
-        console.log("id de la sala a  borrar ", data)
-        queryClient.invalidateQueries({queryKey:["rooms"]})
-        setIsEditSheetOpen(false);
-        enqueueSnackbar("Sala eliminada correctamente", {
-          variant: "success",
-        });
-      },
-      onError:(error)=>{
-        console.log("Error delete room ", error)
-        // navigate("/companies")
-        if(error instanceof AxiosError && error.response){
-                enqueueSnackbar(error.response.data.message, { variant: "error"});
-              }else{
-                enqueueSnackbar("Error al eliminar la sala" , { variant: "error"})
-              }
+    mutationFn: deleteRoom,
+    onSuccess: (data) => {
+      console.log("id de la sala a  borrar ", data);
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
+      setIsEditSheetOpen(false);
+      enqueueSnackbar("Sala eliminada correctamente", {
+        variant: "success",
+      });
+    },
+    onError: (error) => {
+      console.log("Error delete room ", error);
+      // navigate("/companies")
+      if (error instanceof AxiosError && error.response) {
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
+      } else {
+        enqueueSnackbar("Error al eliminar la sala", { variant: "error" });
       }
-    })
-  
-    const onHandleDeleteCompany = () => {
-      if(selectedRoom) {
-        mutationDeleteCompany.mutate(selectedRoom._id)
-      }else{
-        console.log("No existe una sala seleccionada")
-      }
-    }
+    },
+  });
 
+  const onHandleDeleteCompany = () => {
+    if (selectedRoom) {
+      mutationDeleteCompany.mutate(selectedRoom._id);
+    } else {
+      console.log("No existe una sala seleccionada");
+    }
+  };
 
   const handleRoomClick = (room: Room) => {
     setSelectedRoom(room);
     setIsEditSheetOpen(true);
   };
-
 
   if (isError) {
     enqueueSnackbar("Something went wrong!", { variant: "error" });
@@ -114,7 +120,8 @@ const RoomsPage = () => {
 
   return (
     <div className="flex flex-col h-full ">
-      <div className="px-6 py-4 border-b flex justify-between items-center sticky top-0 z-10">
+      {/* sticky */}
+      <div className="px-4 py-4 border-b flex justify-between items-center top-0 z-10">
         <div className="flex items-center gap-2">
           <div className="bg-primary/10 p-2 rounded-lg">
             <Table className="h-6 w-6 text-primary" />
@@ -125,12 +132,11 @@ const RoomsPage = () => {
               <span className="flex items-center gap-1">
                 {resData?.data.data.length + " en total"}
               </span>
-
             </div>
           </div>
         </div>
         <Button
-        className="cursor-pointer"
+          className="cursor-pointer"
           size="sm"
           onClick={() => setIsCreateModalOpen(true)}
         >
@@ -144,7 +150,7 @@ const RoomsPage = () => {
           {resData?.data.data.map((room: Room) => (
             <Card
               key={room._id}
-              onClick={()=>handleRoomClick(room)}
+              onClick={() => handleRoomClick(room)}
               className="group relative overflow-hidden transition-all hover:shadow-lg border-l-4"
             >
               <CardHeader className="pb-2">
@@ -177,24 +183,23 @@ const RoomsPage = () => {
       </div>
 
       <RoomCreateModal
-                isOpen={isCreateModalOpen}
-                onClose={() => setIsCreateModalOpen(false)}
-                onConfirm={handleCreateTable}
-                companyId={companyData._id}
-                isLoading={mutationAddRoom.isPending}
-                // rooms={mockRooms}
-                // defaultRoomId={selectedRoomId} // <--- Truco de UX
-              />
-            
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onConfirm={handleCreateRoom}
+        companyId={companyData._id}
+        isLoading={mutationAddRoom.isPending}
+        // rooms={mockRooms}
+        // defaultRoomId={selectedRoomId} // <--- Truco de UX
+      />
+
       <RoomEditModal
         isOpen={isEditSheetOpen}
-        onClose={()=>setIsEditSheetOpen(false)}
+        onClose={() => setIsEditSheetOpen(false)}
         room={selectedRoom}
         onSave={handleUpdateRoom}
         onDelete={onHandleDeleteCompany}
         isLoading={mutationUpdateRoom.isPending}
       />
-
     </div>
   );
 };

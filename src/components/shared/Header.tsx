@@ -8,7 +8,7 @@ import { useAppSelector } from "@/hooks/hooks"
 
 import UserButton from "./UserButton";
 import type { SideNavOption } from "@/types/sidenav-option"
-import { Building2, Grid2X2, LayoutDashboard, Settings, Table, TrainFrontTunnel, Users } from "lucide-react"
+import { Building2, Grid2X2, Key, LayoutDashboard, Settings, Table, TrainFrontTunnel, Users } from "lucide-react"
 import CompanySwitcher from "./CompanySwitcher"
 
     const Header = ({children}:{children: ReactNode}) => {
@@ -32,6 +32,13 @@ import CompanySwitcher from "./CompanySwitcher"
         },
         {
             _id: 3,
+            href:"/roles",
+            label:"Roles",
+            active: true,
+            icon: Key,
+        },
+        {
+            _id: 4,
             href:"/users",
             label:"Usuarios",
             active: true,

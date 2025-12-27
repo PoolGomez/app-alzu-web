@@ -12,6 +12,8 @@ import Configurations from './pages/Configurations';
 import Products from './pages/Products';
 import Account from './pages/Account';
 import RoomsPage from './pages/Rooms';
+import UsersPage from './pages/Users';
+import RolesPage from './pages/Roles';
 
 
 function Layout(){
@@ -98,6 +100,25 @@ function Layout(){
           </ProtectedRoutes>
 
         }/>
+
+        <Route path='/users' element={
+          <ProtectedRoutes>
+            <Header>
+              <UsersPage />
+            </Header>
+          </ProtectedRoutes>
+
+        }/>
+
+        <Route path='/roles' element={
+          <ProtectedRoutes>
+            <Header>
+              <RolesPage />
+            </Header>
+          </ProtectedRoutes>
+        }
+
+        />
 
         {/* <Route path='/add-company' element={
           

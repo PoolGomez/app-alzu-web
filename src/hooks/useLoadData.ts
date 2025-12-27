@@ -23,8 +23,8 @@ const useLoadData = () => {
             const { data } = await getUserData();
             // console.log(data);
 
-            const { _id, name, email } = data.data;
-            dispatch(setUser({_id, name, email}));
+            const { _id, name, email, publicId } = data.data;
+            dispatch(setUser({_id, name, email, publicId}));
 
            } catch (error) {
                 dispatch(removeUser());

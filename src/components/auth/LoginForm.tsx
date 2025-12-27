@@ -45,8 +45,8 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
     mutationFn: (reqData: LoginSchema) => login(reqData),
     onSuccess: (res) => {
       const { data } = res;
-      const { _id, name, email } = data.data;
-      dispatch(setUser({ _id, name, email }));
+      const { _id, name, email, publicId } = data.data;
+      dispatch(setUser({ _id, name, email , publicId}));
       navigate("/companies");
     },
     onError: (error) => {
